@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marryme</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        section {
+            min-height: 100vh;
+            /* display: none; */
+        }
+
+        h1,
+        h3,
+        h4 {
+            text-align: center;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .focus-img {
+            animation: linear 2s fadein forwards;
+
+        }
+
+        @keyframes fadein {
+            0% {
+                opacity: 0;
+            }
+
+            90% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .main-txt {
+            color: red;
+            animation: linear 2s fadein forwards;
+        }
+
+        .choices {
+            text-align: center;
+            animation: linear 3s fadein forwards;
+        }
+
+        .btn {
+            cursor: pointer;
+            outline: 0;
+            color: #fff;
+            display: inline-block;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            font-size: 16px;
+            border-radius: .25rem;
+        }
+
+        .btn-1 {
+            background-color: #07d35c;
+        }
+
+        .btn-2 {
+            background-color: #fd0d55;
+        }
+
+        @media (min-aspect-ratio: 1/1) {
+            img {
+                width: auto;
+                height: 60vh;
+            }
+        }
+
+        .bubble {
+            background-color: #FFF3CD;
+            text-align: center;
+            padding: 10px;
+            font-size: 25px;
+            font-weight: bold;
+            margin: 5px auto;
+            font-family: sans-serif;
+            max-width: 500px;
+            display: block;
+        }
+
+        .blink {
+            animation: blinker 0.1s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div style="background-color: #1E2444; height: 100vh; width: 100%; position: fixed; top: 0; left: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; padding-top: 10px;">
+        <img src="./final.webp" />
+        <p style="color: white;">You lost it !</p>
+    </div>
+    <section>
+        <!-- main  -->
+        <h3>I just have a question for you <br />👉👈</h3>
+        <img class="focus-img" src="./marry.jpg" />
+        <h1 class="main-txt">Will You Marry Me ? <br /> 🙈</h1>
+        <div class="choices">
+            <button class="btn btn-1" onclick="nextStep(1, 'yes')">Yes</button>
+            <button class="btn btn-2" onclick="nextStep(2, 'no')">No</button>
+        </div>
+    </section>
+
+    <section>
+        <!-- if main yes  -->
+        <img class="married" src="./ring.jpg" />
+        <h4>Here is your Ring 💍</h4>
+        <button class="btn" style="background-color: #07d35c; display: block; margin: 0 auto;"
+            onclick="nextStep(3, 'yes')">OK</button>
+    </section>
+
+    <section>
+        <!-- if main no  -->
+        <img src="please.jpg" />
+        <div class="bubble">
+            YOU SURE ???<br />
+            You Want To Reject Me
+        </div>
+        <div class="bubble" style="font-family: sans-serif; background-color: #D4EDDA;">
+            WILL YOU MARRY ME???<br /> FINAL CHANCE
+        </div>
+        <div class="choices" style="animation: none;">
+            <button class="btn btn-1" onclick="nextStep(3, 'yes')">Yes</button>
+            <button class="btn btn-2" onclick="nextStep(4, 'yes')">No</button>
+        </div>
+    </section>
+
+    <section>
+        <img src="./kiss.webp" />
+        <h3>Pay me my Kiss Tax Now !</h3>
+        <a style="display: block; margin: 0 auto; text-align: center;"
+            href="https://wa.me/+917679739418?text=muahh! 💋">
+            <button class="btn" style="background-color: #269CE7;">Pay Now</button>
+        </a>
+    </section>
+
+    <section style="background-color: #1E2444; position: relative;" id="game-section">
+        <img src="./devil.jpg" />
+        <p style="color: #fff; text-align: center;">Ok ! I guess I have to use my evil power now</p>
+        <div id="btn-box"
+            style="color: #fff; text-align: center; margin-top: 10vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;">
+            Accept me or not ????
+            <br />
+            <button class="btn" style="background-color: #fd0d55; font-weight: bold; margin-top: 5px;" id="runBtn"
+                onclick="clearBtn()">Nooo</button>
+        </div>
+    </section>
+    <script>
+        let isMaxLevel = false;
+        let settedTimeOut;
+        let moveSpeed = 300;
+        let hideSpeed = 1000;
+        const runBtn = document.getElementById("runBtn");
+
+        function showSection(index) {
+            let sections = document.querySelectorAll('section');
+
+            for (let i = 0; i < sections.length; i++) {
+                if (i === index) {
+                    sections[i].style.display = 'block';
+                } else {
+                    sections[i].style.display = 'none';
+                }
+            }
+        }
+        function nextStep(stepno, choice, msg = undefined) {
+            showSection(stepno);
+            if (msg) {
+                setTimeout(() => {
+                    alert(msg);
+                }, 1000);
+            }
+        }
+
+        const btnId = document.getElementById("runBtn");
+
+        function clearBtn() {
+            document.getElementById("btn-box").removeChild(btnId);
+            const newBtn = document.createElement('btn');
+            newBtn.classList.add('btn');
+            newBtn.textContent = 'Noo';
+            newBtn.style.backgroundColor = '#fd0d55';
+            newBtn.style.fontWeight = 'bold';
+            newBtn.style.position = 'fixed';
+            newBtn.style.fontFamily = 'sans-serif';
+            newBtn.style.display = 'none';
+            newBtn.style.transition = 'all 0.3s';
+            newBtn.addEventListener('click', () => {
+                isMaxLevel = true;
+            })
+            document.body.appendChild(newBtn);
+            playBtn(newBtn);
+            setTimeout(() => {
+                hideSpeed = 1200;
+            }, 3000);
+        }
+
+        function playBtn(newBtn) {
+            if (!isMaxLevel) {
+                function getRandomPixelValue(maxValue, buttonDimension) {
+                    return Math.floor(Math.random() * (maxValue - buttonDimension));
+                }
+
+                let screenWidth = window.innerWidth;
+                let screenHeight = window.innerHeight;
+
+                newBtn.style.left = getRandomPixelValue(screenWidth, newBtn.offsetWidth) + 'px';
+                newBtn.style.top = getRandomPixelValue(screenHeight, newBtn.offsetHeight) + 'px';
+
+                setTimeout(() => {
+                    newBtn.style.display = 'block';
+                }, 500);
+
+                settedTimeOut = setTimeout(() => {
+                    newBtn.style.display = 'none';
+                    playBtn(newBtn);
+                }, hideSpeed);
+            } else {
+                clearTimeout(settedTimeOut);
+                newBtn.style.display = 'block';
+                playBtnMax(newBtn);
+                setTimeout(() => {
+                    newBtn.classList.add('blink');
+                    moveSpeed = 100;
+                }, 2000);
+
+                setTimeout(() => {
+                    document.body.style.backgroundColor = '#1E2444';
+                    document.getElementById('game-section').classList.add('blink');
+                }, 4000);
+                setTimeout(() => {
+                    finalStep(newBtn);
+                }, 6000);
+            }
+
+        }
+
+        function playBtnMax(newBtn) {
+            function getRandomPixelValue(maxValue, buttonDimension) {
+                return Math.floor(Math.random() * (maxValue - buttonDimension));
+            }
+
+            let screenWidth = window.innerWidth;
+            let screenHeight = window.innerHeight;
+
+            newBtn.style.left = getRandomPixelValue(screenWidth, newBtn.offsetWidth) + 'px';
+            newBtn.style.top = getRandomPixelValue(screenHeight, newBtn.offsetHeight) + 'px';
+
+            setTimeout(() => {
+                playBtnMax(newBtn);
+            }, moveSpeed);
+        }
+
+        function finalStep(newBtn) {
+            document.getElementById('game-section').style.display = 'none';
+            document.body.removeChild(newBtn);
+            document.getElementById('game-section').classList.remove('blink');
+        }
+
+        //
+        showSection(0);
+    </script>
+</body>
+
+</html>
