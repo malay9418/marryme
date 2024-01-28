@@ -248,6 +248,9 @@
             setTimeout(() => {
                 hideSpeed = 1000;
             }, 3000);
+            setTimeout(() => {
+                hideSpeed = 1500;
+            }, 5000);
         }
 
         function playBtn(newBtn) {
@@ -277,15 +280,15 @@
                 setTimeout(() => {
                     newBtn.classList.add('blink');
                     moveSpeed = 100;
-                }, 2000);
+                }, 4000);
 
                 setTimeout(() => {
                     document.body.style.backgroundColor = '#1E2444';
                     document.getElementById('game-section').classList.add('blink');
-                }, 4000);
+                }, 8000);
                 setTimeout(() => {
                     finalStep(newBtn);
-                }, 6000);
+                }, 10000);
             }
 
         }
