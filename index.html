@@ -108,14 +108,43 @@
                 opacity: 0;
             }
         }
+
+        .refresh {
+            display: inline-block;
+            outline: none;
+            cursor: pointer;
+            line-height: 1;
+            border-radius: 50px;
+            border: 1px solid transparent;
+            letter-spacing: 1px;
+            white-space: normal;
+            text-align: center;
+            padding: 5px 10px;
+            color: #fff;
+            background-color: #1ED760;
+        }
+        @keyframes fadeinmaker {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        .fadein {
+            animation: fadeinmaker linear 2s forwards;
+        }
     </style>
 </head>
 
 <body>
-    <div style="background-color: #1E2444; height: 100vh; width: 100%; position: fixed; top: 0; left: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; padding-top: 10px;">
+    <div id="final-popup" class="fadein"
+        style="display: none; background-color: #1E2444; height: 100vh; width: 100%; position: fixed; top: 0; left: 0; z-index: 10; flex-direction: column; align-items: center; padding-top: 10px;">
         <img src="./final.webp" />
         <p style="color: white;">You lost it !</p>
+        <h1 style="font-family: sans-serif; color: red;">I WON YOU</h1>
     </div>
+    <button style="position: fixed; bottom: 10px; right: 10px; z-index: 20; cursor: pointer;" class="refresh" onclick="location.reload();">restart♻️</button>
     <section>
         <!-- main  -->
         <h3>I just have a question for you <br />👉👈</h3>
@@ -175,7 +204,7 @@
         let isMaxLevel = false;
         let settedTimeOut;
         let moveSpeed = 300;
-        let hideSpeed = 1000;
+        let hideSpeed = 700;
         const runBtn = document.getElementById("runBtn");
 
         function showSection(index) {
@@ -217,7 +246,7 @@
             document.body.appendChild(newBtn);
             playBtn(newBtn);
             setTimeout(() => {
-                hideSpeed = 1200;
+                hideSpeed = 1000;
             }, 3000);
         }
 
@@ -281,6 +310,7 @@
             document.getElementById('game-section').style.display = 'none';
             document.body.removeChild(newBtn);
             document.getElementById('game-section').classList.remove('blink');
+            document.getElementById('final-popup').style.display = 'flex';
         }
 
         //
