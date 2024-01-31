@@ -313,6 +313,7 @@
         function finalStep() {
             document.getElementById('game-section').style.display = 'none';
             //document.body.removeChild(newBtn);
+            document.querySelectorAll('.btn').forEach(btn => btn.remove());
             document.getElementById('game-section').classList.remove('blink');
             document.getElementById('final-popup').style.display = 'flex';
         }
